@@ -15,7 +15,7 @@ conn = psycopg2.connect(
 #Создаем курсор для выполнения запросов к базе данных
 cur = conn.cursor()
 #Создаем таблицу, указываем имя таблицы, имена столбцов и тип данных
-cur.execute("""CREATE TABLE SENDING MESSANGERS(
+cur.execute("""CREATE TABLE SENDING MESSAGES(
                id        INT,
                E-mail    TEXT,
                recipient TEXT,
@@ -25,26 +25,26 @@ conn.commit()
 conn.close()
 
 #Вставляем значения в таблицу
-cur.execute("""INSERT INTO SENDING MESSANGERS (id, E-mail, recipient, content)
+cur.execute("""INSERT INTO SENDING MESSAGES (id, E-mail, recipient, content)
             VALUES(1, 'salesdirector@mail.ru', 'Сергей Николаевич', 'На товар стоимостью до 300 рублей установить скидку 10%')""")
 #Выбираем случайное число из промежутка между 3 и 6 для установки задержки времени между созданием заданий
 time.sleep(random.randint(3, 6))
-cur.execute("""INSERT INTO SENDING MESSANGERS (id, E-mail, recipient, content)
+cur.execute("""INSERT INTO SENDING MESSAGES (id, E-mail, recipient, content)
             VALUES(2, 'staffdirector@mail.ru', 'Ольга Ивановна', 'По итогам работы за май наградить премией лучшего продавца')""")
 time.sleep(random.randint(3, 6))
-cur.execute("""INSERT INTO SENDING MESSANGERS (id, E-mail, recipient, content)
+cur.execute("""INSERT INTO SENDING MESSAGES (id, E-mail, recipient, content)
             VALUES(3, 'buhgalter@mail.ru', 'Татьяна Игоревна', 'Провести ивентаризацию дебиторской задолженности по состоянию на 31.05.2020')""")
 time.sleep(random.randint(3, 6))
-cur.execute("""INSERT INTO SENDING MESSANGERS (id, E-mail, recipient, content)
+cur.execute("""INSERT INTO SENDING MESSAGES (id, E-mail, recipient, content)
             VALUES(4, 'mediadirector@mail.ru', 'Дмитрий Петрович', 'Необходимо заказать рекламный ролик на ТВ в июне')""")
 time.sleep(random.randint(3, 6))
-cur.execute("""INSERT INTO SENDING MESSANGERS (id, E-mail, recipient, content)
+cur.execute("""INSERT INTO SENDING MESSAGES (id, E-mail, recipient, content)
             VALUES(5, 'mickson@mail.ru', 'Николай Григорьевич', 'Направляем Вам коммерческое предложение и предлагаем скидку в размере 5% на оптовые поставки')""")
 time.sleep(random.randint(3, 6))
 
 #Создаем очередь запросов и выполняем их
 cur.execute("""SELECT id, E-mail, recipient, content
-            FROM SENDING MESSANGERS""")
+            FROM SENDING MESSAGES""")
 #Извлечение данных 
 rows = cur.fetchall()  
 #Выполнение заданий на рассылку из очереди
